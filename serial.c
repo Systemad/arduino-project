@@ -17,8 +17,8 @@ void uart_init(void) {
 }
 
 int uart_putchar(char chr, FILE *stream) {
-	if (chr == '\n') {
-		uart_putchar('\r', NULL);
+	if (chr == '\r') {
+		uart_putchar('\n', NULL);
 	}
 	while (!(UCSR0A & (1 << UDRE0)))
 		;
