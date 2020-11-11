@@ -1,8 +1,10 @@
-BIN = lab4# namn på output-binären
+BIN = projectfoxglove# namn på output-binären
 
 # Lista på C-ﬁler ingående i binären
 SOURCES = \
-		  main.c
+		  main.c \
+		  serial.c \
+		  dht.c
 
 PORT = /dev/ttyACM0
 
