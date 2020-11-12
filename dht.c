@@ -6,7 +6,7 @@
 #include "dht.h"
 
 
-int8_t dht_getdata(int8_t *temperature, int8_t *humidity) {
+int8_t dht_getdata(int8_t temperature) {
 	uint8_t bits[5];
 	uint8_t i,j = 0;
 
@@ -69,24 +69,8 @@ int8_t dht_getdata(int8_t *temperature, int8_t *humidity) {
 
 	//check checksum
 	if ((uint8_t)(bits[0] + bits[1] + bits[2] + bits[3]) == bits[4]) {
-		*temperature = bits[2];
-		*humidity = bits[0];
-		return 0;
+		temperature = bits[2];
 	}
 
-	return -1;
-}
-
-int8_t dht_gettemperature(int8_t *temperature) {
-	int8_t humidity = 0;
-	return dht_getdata(temperature, &humidity);
-}
-
-int8_t dht_gethumidity(int8_t *humidity) {
-	int8_t temperature = 0;
-	return dht_getdata(&temperature, humidity);
-}
-
-int8_t dht_gettemperaturehumidity(int8_t *temperature, int8_t *humidity) {
-	return dht_getdata(temperature, humidity);
+	return temperature;
 }
