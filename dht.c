@@ -5,70 +5,74 @@
 
 #include "dht.h"
 
-
 int8_t dht_getdata(int8_t temperature) {
+	
 	uint8_t bits[5];
-	uint8_t i,j = 0;
+	uint16_t counter = 0;
 
 	memset(bits, 0, sizeof(bits));
 
-	//reset port
-	DHT_PIN_OUTPUT(); // output
-	DHT_PIN_HIGH(); // high
+	DHT_PIN_OUTPUT();
+	DHT_PIN_HIGH();
 	
 	_delay_ms(100);
 
-	//send request
-	DHT_PIN_LOW(); // low
+	// In order to send a request we need to set it to LOW, then wait 18ms (as specified in datasheet) 
+	DHT_PIN_LOW();
 	_delay_ms(18);
-	DHT_PIN_HIGH(); // high
-	DHT_PIN_INPUT(); // input
+
+	// Then We need to set it HIGH and as INPUT in order to read the signals and data
+	DHT_PIN_HIGH();
+	DHT_PIN_INPUT();
 	_delay_us(40);
 
-	//check start condition 1
-	if((DHT_PIN & (1 << DHT_INPUTPIN))) {
-		return -1;
-	}
+	// Wait for the first respone to finish then delay for 80us
+	while((DHT_PIN & _BV(DHT_INPUTPIN)));
 	_delay_us(80);
-	//check start condition 2
-	if(!(DHT_PIN & (1 << DHT_INPUTPIN))) {
-		return -1;
-	}
+	
+	// Wait for the last respone to finish then delay for 80us
+	while(!(DHT_PIN & _BV(DHT_INPUTPIN)));
 	_delay_us(80);
 
-	//read the data
-	uint16_t timeoutcounter = 0;
-	for (j=0; j<5; j++) { //read 5 byte
+	for (uint8_t j=0; j<5; j++) { 								// The actual data is stored in 5 bytes, but we need to read 6th as well for parity
 		uint8_t result=0;
-		for(i=0; i<8; i++) {//read every bit
-			timeoutcounter = 0;
-			while(!(DHT_PIN & (1 << DHT_INPUTPIN))) { //wait for an high input (non blocking)
-				timeoutcounter++;
-				if(timeoutcounter > DHT_TIMEOUT) {
-					return -1; //timeout
+		for(uint8_t i=0; i<8; i++) {							// Now we read every bit of each 5 bytes
+			counter = 0;
+			while(!(DHT_PIN & _BV(DHT_INPUTPIN))) { 			// We initiate a counter to track how long it takes for an INPUT
+				counter++;
+				if(counter > DHT_TIMEOUT) {						// If this timer exceeds oue defined DHT_TIMEOUT, return -1
+					return -1; 
 				}
 			}
-			_delay_us(30);
-			if(DHT_PIN & (1 << DHT_INPUTPIN)) //if input is high after 30 us, get result
-				result |= (1 << (7-i));
-			timeoutcounter = 0;
-			while(DHT_PIN & (1 << DHT_INPUTPIN)) { //wait until input get low (non blocking)
-				timeoutcounter++;
-				if(timeoutcounter > DHT_TIMEOUT) {
-					return -1; //timeout
+			_delay_us(50);
+			while(DHT_PIN & _BV(DHT_INPUTPIN)) 				// Now get the results and store them in results
+				result |= _BV(7-i);
+
+			counter = 0;
+			while(DHT_PIN & _BV(DHT_INPUTPIN)) { 				// Same as before, but now we wait for it to get LOW
+				counter++;						
+				if(counter > DHT_TIMEOUT) {						// If this timer exceeds our defined DHT_TIMEOUT, return -1
+					return -1;
 				}
 			}
 		}
-		bits[j] = result;
+		bits[j] = result; // The data including parity
 	}
 
-	//reset port
-	DHT_PIN_OUTPUT(); // output
-	DHT_PIN_LOW(); // low
+	// Now we need to reset the port by setting it to LOW and OUTPUT in order to read from it again
+	DHT_PIN_OUTPUT();
+	DHT_PIN_LOW();
 	_delay_ms(100);
 
-	//check checksum
-	if ((uint8_t)(bits[0] + bits[1] + bits[2] + bits[3]) == bits[4]) {
+	/*
+	* According to the datasheet, if the data is correct, the first 4 bytes should match the parity bit
+	* we can check this by calculating first 4 bytes together and check if it matches the parity bit
+	* if it does, store 3rd byte (High temperature 8) into temperature 
+	*/ 
+
+	if ((bits[0] + bits[1] + bits[2] + bits[3]) != bits[4]) {
+		return -1;
+	} else {
 		temperature = bits[2];
 	}
 

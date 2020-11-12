@@ -11,7 +11,7 @@
 
 int main(void)
 {
-	char printbuff[100];
+	char buffer[50];
 
 	//init uart
 	uart_init();
@@ -22,10 +22,10 @@ int main(void)
 	int8_t temperature = 0;
 
 	while(1) {
-		temperature = dht_getdata();
-		itoa(temperature, printbuff, 10);
+		temperature = dht_getdata(temperature);
+		itoa(temperature, buffer, 10);
 		uart_putstr("temperature: ");
-		uart_putstr(printbuff);
+		uart_putstr(buffer);
 		uart_putstr("C");
 		uart_putstr("\r\n");
 		_delay_ms(2000);
