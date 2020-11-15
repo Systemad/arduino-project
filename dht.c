@@ -65,9 +65,9 @@ int8_t dht_getdata(int8_t temperature) {
 	_delay_ms(100);
 
 	/*
-	* According to the datasheet, if the data is correct, the first 4 bytes should match the parity bit
-	* we can check this by calculating first 4 bytes together and check if it matches the parity bit
-	* if it does, store 3rd byte (High temperature 8) into temperature 
+	* According to the datasheet, if the data is correct, the first 4 bytes together should be equal to the parity bit
+	* we can check this by calculating first 4 bytes together and check if it equal to the parity bit
+	* if it, store 3rd byte (High temperature 8) into temperature 
 	*/ 
 
 	if ((bits[0] + bits[1] + bits[2] + bits[3]) != bits[4]) {
