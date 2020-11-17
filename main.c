@@ -9,27 +9,21 @@
 
 #include "serial.h"
 
-int main(void)
-{
-	char buffer[50];
+void main(void)
+{   
+    char buffer[50];
+    int8_t temperature = 0;
+    
+    uart_init();
 
-	//init uart
-	uart_init();
-
-	//init interrupt
-	//sei();
-
-	int8_t temperature = 0;
-
-	while(1) {
-		temperature = dht_getdata(temperature);
+    while (1)
+    {
+        temperature = dht_getdata(temperature);
 		itoa(temperature, buffer, 10);
 		uart_putstr("temperature: ");
 		uart_putstr(buffer);
 		uart_putstr("C");
 		uart_putstr("\r\n");
 		_delay_ms(2000);
-	}
-	
-	return 0;
+    }
 }
