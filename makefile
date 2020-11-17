@@ -4,9 +4,10 @@ BIN = projectfoxglove# namn på output-binären
 SOURCES = \
 		  main.c \
 		  serial.c \
+		  lcd.c \
 		  dht.c
 
-PORT = /dev/ttyACM0
+PORT = /dev/ttyS3#
 
 #/dev/ttyS3# Arduinons serieport — kan vara ttyACM1, kolla dmesg!
 MCU=atmega328p

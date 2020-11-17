@@ -75,14 +75,6 @@ void lcd_sendChar(uint8_t character) {
     lcd_sendByte(character << 4);
 }
 
-//  WIP
-//void lcd_sendInteger(int integer) {
-//    LCD_RS_PORT |= (1 << LCD_RS_BIT);
-//    LCD_E_PORT &= ~(1 << LCD_E_BIT);
-//    lcd_sendByte(integer);
-//    lcd_sendByte(integer << 4);
-//}
-
 void lcd_sendString(uint8_t string[]) {
     volatile int i = 0;
     while (string[i] != 0) {
