@@ -2,8 +2,8 @@
 #define DHT_H_
 
 //Settings:
-#define MAX_TEMP 27
-#define MIN_TEMP 23
+#define MAX_TEMP 25
+#define MIN_TEMP 20
 #define WARNING_DEFICIT 5
 
 // Define pin mode and DHT11 pin
