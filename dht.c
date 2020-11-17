@@ -5,13 +5,8 @@
 
 #include "dht.h"
 
-int8_t dht_getdata(int8_t temperature) {
-	
-	uint8_t bits[5];
-	uint16_t counter = 0;
 
-	memset(bits, 0, sizeof(bits));
-
+void start_dht(){
 	DHT_PIN_OUTPUT();
 	DHT_PIN_HIGH();
 	
@@ -20,7 +15,7 @@ int8_t dht_getdata(int8_t temperature) {
 	// In order to send a request we need to set it to LOW, then wait 18ms (as specified in datasheet) 
 	DHT_PIN_LOW();
 	_delay_ms(18);
-
+	
 	// Then We need to set it HIGH and as INPUT in order to read the signals and data
 	DHT_PIN_HIGH();
 	DHT_PIN_INPUT();
@@ -33,6 +28,26 @@ int8_t dht_getdata(int8_t temperature) {
 	// Wait for the last respone to finish then delay for 80us
 	while(!(DHT_PIN & _BV(DHT_INPUTPIN)));
 	_delay_us(80);
+}
+
+void reset_dht(){
+
+	// Now we need to reset the port by setting it to LOW and OUTPUT in order to read from it again
+	DHT_PIN_OUTPUT();
+	DHT_PIN_LOW();
+	_delay_ms(100);
+
+}
+
+int8_t dht_getdata(int8_t temperature) {
+	
+	uint8_t bits[5];
+	uint16_t counter = 0;
+
+	memset(bits, 0, sizeof(bits));
+
+	// Setup and start dht;
+	start_dht();
 
 	for (uint8_t j=0; j<5; j++) { 								// The actual data is stored in 5 bytes, but we need to read 6th as well for parity
 		uint8_t result=0;
@@ -59,11 +74,9 @@ int8_t dht_getdata(int8_t temperature) {
 		bits[j] = result; // The data including parity
 	}
 
-	// Now we need to reset the port by setting it to LOW and OUTPUT in order to read from it again
-	DHT_PIN_OUTPUT();
-	DHT_PIN_LOW();
-	_delay_ms(100);
-
+	// Reset DHT in order to read data from it again
+	reset_dht();
+	
 	/*
 	* According to the datasheet, if the data is correct, the first 4 bytes together should be equal to the parity bit
 	* we can check this by calculating first 4 bytes together and check if it equal to the parity bit
