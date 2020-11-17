@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-11-17T20:38:53.643Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4307.0 Safari/537.36 Edg/88.0.692.0" etag="gQtS8cw7rXoBGsUGFp-B" version="13.9.9" type="github">
+<mxfile host="app.diagrams.net" modified="2020-11-17T20:55:11.951Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4307.0 Safari/537.36 Edg/88.0.692.0" etag="6YVOhsFKrt7dIOjuabiQ" version="13.9.9" type="github">
   <diagram id="GbQ9wabFYI_MaC2_cHQQ" name="Page-1">
     <mxGraphModel dx="1038" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -16,7 +16,7 @@
             <mxPoint x="380" y="110" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="NEqc8nKRHtcBdQz_AVIA-4" value="temp &amp;gt;= 20&lt;br&gt;AND&lt;br&gt;temp &amp;lt;= 25" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="NEqc8nKRHtcBdQz_AVIA-4" value="temp &amp;gt;= 20&lt;br&gt;AND&lt;br&gt;temp &amp;lt;= 15" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="45" y="210" width="130" height="90" as="geometry" />
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-6" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="NEqc8nKRHtcBdQz_AVIA-2" target="NEqc8nKRHtcBdQz_AVIA-4" edge="1">
@@ -35,15 +35,15 @@
           <mxGeometry x="50" y="350" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-12" value="&lt;font style=&quot;font-size: 14px&quot;&gt;True&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="50" y="300" width="55" height="30" as="geometry" />
+          <mxGeometry x="160" y="220" width="55" height="30" as="geometry" />
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-13" value="&lt;font style=&quot;font-size: 14px&quot;&gt;False&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="170" y="225" width="40" height="20" as="geometry" />
+          <mxGeometry x="60" y="310" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-15" value="Yellow LED&lt;br&gt;LCD - Warning" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="230" y="225" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="NEqc8nKRHtcBdQz_AVIA-20" value="&lt;span&gt;temp &amp;lt;= 15&lt;/span&gt;&lt;br&gt;&lt;span&gt;OR&lt;/span&gt;&lt;br&gt;&lt;span&gt;temp &amp;gt;= 20&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="NEqc8nKRHtcBdQz_AVIA-20" value="&lt;span&gt;temp &amp;gt;= 25&lt;/span&gt;&lt;br&gt;&lt;span&gt;OR&lt;/span&gt;&lt;br&gt;&lt;span&gt;temp &amp;lt;= 20&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="210" width="135" height="90" as="geometry" />
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-23" value="Red LED&lt;br&gt;LCD - Critical" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -93,7 +93,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="NEqc8nKRHtcBdQz_AVIA-41" value="&lt;font style=&quot;font-size: 14px&quot;&gt;True&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="535" y="225" width="40" height="20" as="geometry" />
+          <mxGeometry x="535" y="230" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="PIveHvH1oYUkCGYTxlvE-4" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="NEqc8nKRHtcBdQz_AVIA-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
