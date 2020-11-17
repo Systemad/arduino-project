@@ -14,7 +14,12 @@
 #define DHT_PIN_READ()     (PIND & _BV(DHT_INPUTPIN))
 
 
+// init and start dht
+void start_dht();
+
+
 // Function to get temperature
 int8_t dht_getdata(int8_t temperature);
+
 
 #endif
