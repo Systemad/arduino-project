@@ -8,7 +8,8 @@ SOURCES = \
 		  dht.c	\
 		  led.c
 
-PORT = /dev/ttyS3#
+PORT = /dev/ttyACM0
+#/dev/ttyS3#
 
 #/dev/ttyS3# Arduinons serieport — kan vara ttyACM1, kolla dmesg!
 MCU=atmega328p

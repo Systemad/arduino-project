@@ -7,7 +7,6 @@
 
 #include "led.h"
 #include "lcd.h"
-#include "settings.h"
 #include "dht.h"
 #include "serial.h"
 
@@ -26,6 +25,7 @@ void main(void)
 
     while (1)
     {
+        /*
         lcd_instruct(LCD_SetPosition | LCD_LINE_ONE);       //Sets the position on the first line
         lcd_sendString(firstLine);           
         temperature = dht_getdata(temperature);             //Receives data from the DHT11 and allocates it in the temp variable
@@ -40,5 +40,12 @@ void main(void)
 		_delay_ms(1000);
 
         led_state(temperature);                             //Meanwhile the state function is monitoring and adapting the LED accordingly
+        */
+        GREEN_TOGGLE();
+        _delay_ms(1000);
+        RED_TOGGLE();
+        _delay_ms(1000);
+        YELLOW_TOGGLE(); 
+        _delay_ms(1000);
     }
 }

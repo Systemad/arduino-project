@@ -1,4 +1,4 @@
-#include <avrio.h>
+#include <avr/io.h>
 #include "led.h"
 #include "dht.h"
 
@@ -11,9 +11,9 @@ void led_init(void) {
 }
 
 void led_state(uint8_t temp) {
-	if (temp >= MAX_TEMP - WARNING_DEFICIT) YELLOW_TOGGLE;
-	else if (temp >= MAX_TEMP) RED_TOGGLE;
-	if (temp >= MIN_TEMP - WARNING_DEFICIT) YELLOW_TOGGLE;
-	else if (temp <= MIN_TEMP) RED_TOGGLE;
-	else { GREEN_TOGGLE };
+	if (temp >= MAX_TEMP - WARNING_DEFICIT) YELLOW_TOGGLE();
+	else if (temp >= MAX_TEMP) RED_TOGGLE();
+	if (temp >= MIN_TEMP - WARNING_DEFICIT) YELLOW_TOGGLE();
+	else if (temp <= MIN_TEMP) RED_TOGGLE();
+	else { GREEN_TOGGLE(); };
 }
