@@ -75,7 +75,7 @@ void led_state(int8_t temp) {
 
 	if (temp >= MAX_TEMP - WARNING_DEFICIT || temp <= MIN_TEMP - WARNING_DEFICIT )
 	{
-	    if (temp >= MIN_TEMP || (temp >= MIN_TEMP )
+	    if (temp >= MIN_TEMP || (temp <= MIN_TEMP )
 	    {
 		critical();
 	    } else {
