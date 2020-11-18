@@ -53,14 +53,6 @@ void main(void)
         //uart_putstr(critical_mode1);
         //led_state(counter);
         //_delay_ms(2000)
-        /*
-        GREEN_ON();
-        _delay_ms(1000);
-        RED_ON();
-        _delay_ms(1000);
-        YELLOW_ON(); 
-        _delay_ms(1000);
-        */
     }
 }
 
@@ -71,7 +63,6 @@ void led_state(int8_t temp) {
 	// To write to LCD
 	char buffer[100];
 	itoa(temp, buffer, 10);
-
 
 	if (temp >= 22 || temp <= 19 )
 	{
@@ -84,23 +75,6 @@ void led_state(int8_t temp) {
 	} else {
 	    ok();
 	}
-
-
-
-    /*
-	} else if (temp == MAX_TEMP){
-		critical(buffer);
-	}
-	
-	if (temp >= MIN_TEMP - WARNING_DEFICIT){
-		warning(buffer);
-	} else if (temp == MIN_TEMP){
-		critical(buffer);
-	} else {
-		ok(buffer);
-	};
-    */
-    
 }
 
 
