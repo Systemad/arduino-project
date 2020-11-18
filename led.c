@@ -40,7 +40,8 @@ void led_state(uint8_t temp) {
 }
 
 
-void warning(){
+void warning(char buff){
+	// Only turn on Yellow
 	GREEN_OFF();
 	RED_OFF();
 	YELLOW_ON();
@@ -49,36 +50,35 @@ void warning(){
 	lcd_sendString(warning_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buffer);
+	lcd_sendString(buff);
 	lcd_sendString(celsius);
 
 }
 
-void critical(){
+void critical(char buff){
+	// Only turn on red
 	YELLOW_OFF();
 	GREEN_OFF();
-	
 	RED_ON();
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buffer);
+	lcd_sendString(buff);
 	lcd_sendString(celsius);
 }
 
-void ok(){
-	// Turn off other LEDS
+void ok(char buff){
+	// Only turn on green
 	YELLOW_OFF();
 	RED_OFF();
-
 	GREEN_ON();
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buffer);
+	lcd_sendString(buff);
 	lcd_sendString(celsius);
 }
