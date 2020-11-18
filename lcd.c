@@ -29,9 +29,9 @@ void lcd_init() {
     _delay_us(200);                              
 
 
-    lcd_sendByte(LCD_Set4bit); //Enables 4bit mode
+    lcd_sendByte(LCD_Set4bit);      //Enables 4bit mode
     _delay_us(80);
-    lcd_instruct(LCD_Set4bit); //Set the size and font
+    lcd_instruct(LCD_Set4bit);      //Set the size and font
     _delay_us(80);
 
     //Initialization routine:
@@ -60,9 +60,9 @@ void lcd_sendByte(uint8_t byte) {
     if (byte & 1 << 4) LCD_D4_PORT |= (1 << LCD_D4_BIT);
 
                                                        
-    LCD_E_PORT |= (1 << LCD_E_BIT);     //E to high              
+    LCD_E_PORT |= (1 << LCD_E_BIT);         //E to high              
     _delay_us(1);                                 
-    LCD_E_PORT &= ~(1 << LCD_E_BIT);    //E to low        
+    LCD_E_PORT &= ~(1 << LCD_E_BIT);        //E to low        
     _delay_us(1);                              
 }
 

@@ -13,37 +13,42 @@ uint8_t celsius[] = " C";
 
 void led_init(void) {
 	//Sets LED pins to output initializing further usage:
-	LED_GREEN_DDR |= _BV(LED_GREEN_BIT);
-	LED_RED_DDR |= _BV(LED_RED_BIT);
-	LED_YELLOW_DDR |= _BV(LED_RED_BIT);
+	DDRB |= (1 << PB0); // Green
+	DDRB |= (1 << PB1); // Yellow
+	DDRB |= (1 << PB2); // Red
 }
-void warning(char buff){
+
+void warning(){
 	
 	// Only turn on Yellow
 	GREEN_OFF();
 	RED_OFF();
 	YELLOW_ON();
 
+	uart_putstr(warning_mode);
+
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
 }
 
-void critical(char buff){
+void critical(){
 	// Only turn on red
 	YELLOW_OFF();
 	GREEN_OFF();
 	RED_ON();
 
+	uart_putstr(critical_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
 }
 
-void ok(char buff){
+void ok(){
 	// Only turn on green
 	YELLOW_OFF();
 	RED_OFF();
 	GREEN_ON();
+	uart_putstr(ok_mode);
 	
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
@@ -57,7 +62,7 @@ void led_state(int8_t temp) {
 	itoa(temp, buffer, 10);
 
 	//uart_putstr(buffer);
-	/*
+	
 	if (temp <= 19)
 	{
 	    if (temp <= 15)
@@ -69,19 +74,20 @@ void led_state(int8_t temp) {
 	} else {
 	    ok();
 	}
-	*/
 	
+	/*
 	if (temp >= 22)
 	{
 	    if (temp >= 27)
 	    {
-			critical(buffer);
+			critical();
 	    } else {
-			warning(buffer);
+			warning();
 	    }
 	} else {
-	    ok(buffer);
+	    ok();
 	}
+	*/
 
 	// send temperature to 2nd line
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
