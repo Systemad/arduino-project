@@ -14,9 +14,14 @@
 #define LED_RED_BIT		10
 #define LED_RED_DDR		DDRB
 
-#define GREEN_TOGGLE()      (PORTB ^= _BV(LED_GREEN_BIT))
-#define RED_TOGGLE()        (PORTB ^= _BV(LED_RED_BIT))
-#define YELLOW_TOGGLE()     (PORTB ^= _BV(LED_YELLOW_BIT))
+#define GREEN_ON()      (PORTB |= (1 << LED_GREEN_BIT))
+#define GREEN_OFF()      (PORTB &= ~(1 << LED_GREEN_BIT))
+
+#define YELLOW_ON()      (PORTB |= (1 << LED_YELLOW_BIT))
+#define YELLOW_OFF()      (PORTB &= ~(1 << LED_YELLOW_BIT))
+
+#define RED_ON()      (PORTB |= (1 << LED_RED_BIT))
+#define RED_OFF()      (PORTB &= ~(1 << LED_RED_BIT))
 
 
 void led_init(void);

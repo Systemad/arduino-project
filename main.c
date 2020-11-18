@@ -41,11 +41,11 @@ void main(void)
 
         led_state(temperature);                             //Meanwhile the state function is monitoring and adapting the LED accordingly
         */
-        GREEN_TOGGLE();
+        GREEN_ON();
         _delay_ms(1000);
-        RED_TOGGLE();
+        RED_ON();
         _delay_ms(1000);
-        YELLOW_TOGGLE(); 
+        YELLOW_ON(); 
         _delay_ms(1000);
     }
 }
