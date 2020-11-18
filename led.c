@@ -24,18 +24,18 @@ void led_state(uint8_t temp) {
 	itoa(temp, buffer, 10);
 
 	if (temp >= MAX_TEMP - WARNING_DEFICIT){
-		warning();
+		warning(buffer);
 	} else if (temp >= MAX_TEMP){
-		critical();
+		critical(buffer);
 	}
 	
 	if (temp >= MIN_TEMP - WARNING_DEFICIT){
-		warning();
+		warning(buffer);
 	} else if (temp <= MIN_TEMP){
-		critical();
+		critical(buffer);
 	}
 	else {
-		ok();
+		ok(buffer);
 	};
 }
 
