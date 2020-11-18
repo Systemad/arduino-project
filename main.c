@@ -73,9 +73,9 @@ void led_state(int8_t temp) {
 	itoa(temp, buffer, 10);
 
 
-	if (temp >= MAX_TEMP - WARNING_DEFICIT || temp <= MIN_TEMP - WARNING_DEFICIT )
+	if (temp >= 22 || temp <= 19 )
 	{
-	    if (temp >= MIN_TEMP || (temp <= MIN_TEMP )
+	    if (temp >= 27 || (temp <= 15 )
 	    {
 		critical();
 	    } else {
