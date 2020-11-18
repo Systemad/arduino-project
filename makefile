@@ -5,8 +5,8 @@ SOURCES = \
 		  main.c \
 		  serial.c \
 		  lcd.c \
-		  dht.c	\
-		  led.c
+		  dht.c
+		  #led.c
 
 PORT = /dev/ttyACM0
 #/dev/ttyS3#

@@ -2,6 +2,7 @@
 #include "led.h"
 #include "dht.h"
 #include "lcd.h"
+#include "serial.h"
 
 uint8_t ok_mode[] = " OK: ";
 uint8_t warning_mode[] = " Warning: ";
@@ -17,6 +18,7 @@ void led_init(void) {
 	LED_YELLOW_DDR |= _BV(LED_RED_BIT);
 }
 
+/*
 void led_state(uint8_t temp) {
 
 	// To write to LCD
@@ -45,13 +47,17 @@ void warning(char buff){
 	GREEN_OFF();
 	RED_OFF();
 	YELLOW_ON();
+	
+	uart_putstr(ok_mode);
 
+	
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
 	lcd_sendString(buff);
 	lcd_sendString(celsius);
+	
 
 }
 
@@ -61,12 +67,16 @@ void critical(char buff){
 	GREEN_OFF();
 	RED_ON();
 
+	uart_putstr(critical);
+
+	
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
 	lcd_sendString(buff);
 	lcd_sendString(celsius);
+	
 }
 
 void ok(char buff){
@@ -75,10 +85,15 @@ void ok(char buff){
 	RED_OFF();
 	GREEN_ON();
 
+	uart_putstr(ok);
+
+	
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
 
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
 	lcd_sendString(buff);
 	lcd_sendString(celsius);
+	
 }
+*/
