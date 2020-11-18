@@ -52,25 +52,8 @@ void main(void)
         //counter++;
         //uart_putstr(critical_mode1);
         //led_state(counter);
-        //_delay_ms(2000);
+        //_delay_ms(2000)
         /*
-        
-        lcd_instruct(LCD_SetPosition | LCD_LINE_ONE);       //Sets the position on the first line
-        lcd_sendString(firstLine);           
-        temperature = dht_getdata(temperature);             //Receives data from the DHT11 and allocates it in the temp variable
-		itoa(temperature, buffer, 10);                      //Non standard function that converts and int to a string 
-        lcd_sendString(buffer);
-        lcd_sendChar(degreeSymbol);
-        lcd_sendString(celsius);
-
-        lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);       //Start of the second line
-        lcd_sendString(secondLine);
-
-		_delay_ms(1000);
-
-        led_state(temperature);                             //Meanwhile the state function is monitoring and adapting the LED accordingly
-        
-        
         GREEN_ON();
         _delay_ms(1000);
         RED_ON();
@@ -89,33 +72,20 @@ void led_state(int8_t temp) {
 	char buffer[100];
 	itoa(temp, buffer, 10);
 
-    /*
-    _delay_ms(100);
-    if (temp < 5){
-		ok(buffer);
-    } else if (temp > 6){
-        warning(buffer);
-    }
-    */
+
+	if (temp >= MAX_TEMP - WARNING_DEFICIT || temp <= MIN_TEMP - WARNING_DEFICIT )
+	{
+	    if (temp >= MIN_TEMP || (temp >= MIN_TEMP )
+	    {
+		critical();
+	    } else {
+		warning();
+	    }
+	} else {
+	    ok();
+	}
 
 
-	if (temp >= MAX_TEMP - WARNING_DEFICIT)
-    {
-        warning();
-    }
-	else if (temp >= MAX_TEMP){
-        red();
-    }
-	if (temp >= MIN_TEMP - WARNING_DEFICIT)
-    {
-        warning();
-    }
-	else if (temp <= MIN_TEMP){
-        critical();
-    }
-	else {
-        ok(); 
-    };
 
     /*
 	} else if (temp == MAX_TEMP){
