@@ -18,7 +18,7 @@ void led_init(void) {
 	DDRB |= (1 << PB2); // Red
 }
 
-void warning(){
+void warning(void){
 	
 	// Only turn on Yellow
 	GREEN_OFF();
@@ -31,19 +31,18 @@ void warning(){
 	lcd_sendString(warning_mode);
 }
 
-void critical(){
+void critical(void){
 	// Only turn on red
 	YELLOW_OFF();
 	GREEN_OFF();
 	RED_ON();
-
 	uart_putstr(critical_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
 }
 
-void ok(){
+void ok(void){
 	// Only turn on green
 	YELLOW_OFF();
 	RED_OFF();

@@ -52,11 +52,4 @@ void lcd_sendChar(uint8_t character);
 
 void lcd_sendString(uint8_t *);
 
-
-
-
-
-
-
-
 #endif // _LCD_H_

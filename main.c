@@ -13,7 +13,7 @@
 void main(void)
 {   
 
-    led_init();
+    //led_init();
     lcd_init();
     uart_init();
 
