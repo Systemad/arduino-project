@@ -28,4 +28,10 @@ void led_init(void);
 
 void led_state(int8_t temp);
 
+void warning(char buff);
+
+void critical(char buff);
+
+void ok(char buff);
+
 #endif // !_LED_H_

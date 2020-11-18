@@ -4,10 +4,10 @@
 #include "lcd.h"
 #include "serial.h"
 
+uint8_t temperature[] = " Temperature";
 uint8_t ok_mode[] = " OK: ";
 uint8_t warning_mode[] = " Warning: ";
 uint8_t critical_mode[] = " Critical: ";
-
 uint8_t celsius[] = " C";
 
 
@@ -17,48 +17,15 @@ void led_init(void) {
 	LED_RED_DDR |= _BV(LED_RED_BIT);
 	LED_YELLOW_DDR |= _BV(LED_RED_BIT);
 }
-
-/*
-void led_state(uint8_t temp) {
-
-	// To write to LCD
-	char buffer[100];
-	itoa(temp, buffer, 10);
-
-	if (temp >= MAX_TEMP - WARNING_DEFICIT){
-		warning(buffer);
-	} else if (temp >= MAX_TEMP){
-		critical(buffer);
-	}
-	
-	if (temp >= MIN_TEMP - WARNING_DEFICIT){
-		warning(buffer);
-	} else if (temp <= MIN_TEMP){
-		critical(buffer);
-	}
-	else {
-		ok(buffer);
-	};
-}
-
-
 void warning(char buff){
+	
 	// Only turn on Yellow
 	GREEN_OFF();
 	RED_OFF();
 	YELLOW_ON();
-	
-	uart_putstr(ok_mode);
 
-	
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
-
-	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buff);
-	lcd_sendString(celsius);
-	
-
 }
 
 void critical(char buff){
@@ -67,16 +34,9 @@ void critical(char buff){
 	GREEN_OFF();
 	RED_ON();
 
-	uart_putstr(critical);
-
-	
+	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
-
-	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buff);
-	lcd_sendString(celsius);
-	
 }
 
 void ok(char buff){
@@ -84,16 +44,49 @@ void ok(char buff){
 	YELLOW_OFF();
 	RED_OFF();
 	GREEN_ON();
-
-	uart_putstr(ok);
-
 	
+	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
-
-	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(buff);
-	lcd_sendString(celsius);
-	
 }
-*/
+
+void led_state(int8_t temp) {
+
+	// To write to LCD
+	char buffer[50];
+	itoa(temp, buffer, 10);
+
+	//uart_putstr(buffer);
+	/*
+	if (temp <= 19)
+	{
+	    if (temp <= 15)
+	    {
+			critical();
+	    } else {
+			warning();
+	    }
+	} else {
+	    ok();
+	}
+	*/
+	
+	if (temp >= 22)
+	{
+	    if (temp >= 27)
+	    {
+			critical(buffer);
+	    } else {
+			warning(buffer);
+	    }
+	} else {
+	    ok(buffer);
+	}
+
+	// send temperature to 2nd line
+	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
+	lcd_sendString(temperature);
+	lcd_sendString(buffer);
+	lcd_sendString(celsius);
+
+}
