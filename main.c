@@ -10,6 +10,9 @@
 #include "dht.h"
 #include "serial.h"
 
+uint8_t temp_text[] = " Temperature";
+uint8_t celsius[] = " C";
+
 void main(void)
 {   
 
@@ -18,16 +21,24 @@ void main(void)
     uart_init();
 
 	int8_t temperature = 0;
-	int8_t counter = 0;
+	char buffer[50];
 
     while (1)
     {	
+		// Get temperature
 		temperature = dht_getdata(temperature);
-		//led_state(temperature);
 		
-		// Testing
-		counter++;
-        led_state(counter);
+		// Convert to string and place in buffer
+		itoa(temperature, buffer, 10);
+
+		// send temperature to 2nd line
+		lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
+		lcd_sendString(temp_text);
+		lcd_sendString(buffer);
+		lcd_sendString(celsius);
+		
+		// Pass temperatire to function to check state and turn on LED
+		led_state(temperature);
 		_delay_ms(1000);
 	}
 }

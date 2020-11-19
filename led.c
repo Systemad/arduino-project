@@ -5,11 +5,9 @@
 #include "lcd.h"
 #include "serial.h"
 
-uint8_t temperature[] = " Temperature";
 uint8_t ok_mode[] = " OK: ";
 uint8_t warning_mode[] = " Warning: ";
 uint8_t critical_mode[] = " Critical: ";
-uint8_t celsius[] = " C";
 
 
 void led_init(void) {
@@ -55,11 +53,6 @@ void ok(void){
 }
 
 void led_state(int8_t temp) {
-
-	// To write to LCD
-	char buffer[50];
-	itoa(temp, buffer, 10);
-
 	if (temp <= MIN_TEMP){
 		critical();
 	}
@@ -79,10 +72,4 @@ void led_state(int8_t temp) {
 	if (temp >= MAX_TEMP) {
 		critical();
 	}
-	
-	// send temperature to 2nd line
-	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-	lcd_sendString(temperature);
-	lcd_sendString(buffer);
-	lcd_sendString(celsius);
 }
