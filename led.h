@@ -1,27 +1,23 @@
 #ifndef _LED_H_
 #define _LED_H_
 
-//Ports, bits and data registers for 3 LEDs:
-#define LED_GREEN_PORT	PORTD
-#define LED_GREEN_BIT	PORTD5
-#define LED_GREEN_DDR	DDRD
+#define GREEN_ON()       (PORTB |= (1 << PB5));
+#define GREEN_OFF()      (PORTB &= ~(1 << PB5));
 
-#define LED_RED_PORT	PORTD
-#define LED_RED_BIT		PORTD4
-#define LED_RED_DDR		DDRD
+#define YELLOW_ON()      (PORTB |= (1 << PB1));
+#define YELLOW_OFF()     (PORTB &= ~(1 << PB1));
 
-#define LED_YELLOW_PORT PORTD
-#define LED_YELLOW_BIT	PORTD3
-#define LED_YELLOW_DDR	DDRD
-
-
-#define GREEN_TOGGLE     (PORTD ^= _BV(LED_GREEN_BIT))
-#define RED_TOGGLE    (PORTD ^= _BV(LED_RED_BIT))
-#define YELLOW_TOGGLE     (PORTD ^= _BV(LED_YELLOW_BIT))
-
+#define RED_ON()         (PORTB |= (1 << PB2));
+#define RED_OFF()        (PORTB &= ~(1 << PB2));
 
 void led_init(void);
 
-void led_state(uint8_t temp);
+void led_state(int8_t temp);
+
+void warning(void);
+
+void critical(void);
+
+void ok(void);
 
 #endif // !_LED_H_

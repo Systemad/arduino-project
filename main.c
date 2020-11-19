@@ -7,38 +7,27 @@
 
 #include "led.h"
 #include "lcd.h"
-#include "settings.h"
 #include "dht.h"
 #include "serial.h"
 
 void main(void)
 {   
-    char buffer[50];
-    int8_t temperature = 0;
-    uint8_t firstLine[] = " Temp: ";
-    uint8_t celsius[] = " C";
-    char degreeSymbol = (char)223;
-    uint8_t secondLine[] = " Hum: ";
-    
+
     led_init();
     lcd_init();
     uart_init();
 
+	int8_t temperature = 0;
+	int8_t counter = 0;
+
     while (1)
-    {
-        lcd_instruct(LCD_SetPosition | LCD_LINE_ONE);       //Sets the position on the first line
-        lcd_sendString(firstLine);           
-        temperature = dht_getdata(temperature);             //Receives data from the DHT11 and allocates it in the temp variable
-		itoa(temperature, buffer, 10);                      //Non standard function that converts and int to a string 
-        lcd_sendString(buffer);
-        lcd_sendChar(degreeSymbol);
-        lcd_sendString(celsius);
-
-        lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);       //Start of the second line
-        lcd_sendString(secondLine);
-
+    {	
+		temperature = dht_getdata(temperature);
+		//led_state(temperature);
+		
+		// Testing
+		counter++;
+        led_state(counter);
 		_delay_ms(1000);
-
-        led_state(temperature);                             //Meanwhile the state function is monitoring and adapting the LED accordingly
-    }
+	}
 }
