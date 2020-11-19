@@ -7,7 +7,7 @@
 #define YELLOW_ON()      (PORTB |= (1 << PB1));
 #define YELLOW_OFF()     (PORTB &= ~(1 << PB1));
 
-#define RED_ON()         (PORTB &= ~(1 << PB2));
+#define RED_ON()         (PORTB |= (1 << PB2));
 #define RED_OFF()        (PORTB &= ~(1 << PB2));
 
 

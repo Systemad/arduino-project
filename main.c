@@ -13,32 +13,19 @@
 void main(void)
 {   
 
-    //led_init();
+    led_init();
     lcd_init();
     uart_init();
 
 	int8_t temperature = 0;
-
 	int8_t counter = 0;
-
-	//DDRB |= (1 << PB7);
-
-	// Green
-
-
 
     while (1)
     {	
-		//PORTB |= (1 << PB0);
-		
 		//temperature = dht_getdata(temperature);
 		
 		counter++;
-		//_delay_ms(1000);
         led_state(counter);
-        //_delay_ms(5000);
-
-		//PORTB &= ~(1 << PB0);
 		_delay_ms(1000);
 	}
 }

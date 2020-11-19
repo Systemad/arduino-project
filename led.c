@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include <util/delay.h>
 #include "led.h"
 #include "dht.h"
 #include "lcd.h"
@@ -36,6 +37,7 @@ void critical(void){
 	YELLOW_OFF();
 	GREEN_OFF();
 	RED_ON();
+	
 	uart_putstr(critical_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
@@ -61,10 +63,10 @@ void led_state(int8_t temp) {
 	itoa(temp, buffer, 10);
 
 	//uart_putstr(buffer);
-	
-	if (temp <= 19)
+	/*
+	if (temp <= 19 || temp >= 22)
 	{
-	    if (temp <= 15)
+	    if (temp <= 15 || temp >= 27)
 	    {
 			critical();
 	    } else {
@@ -73,8 +75,10 @@ void led_state(int8_t temp) {
 	} else {
 	    ok();
 	}
+	_delay_ms(1000);
+	*/
 	
-	/*
+	
 	if (temp >= 22)
 	{
 	    if (temp >= 27)
@@ -86,7 +90,7 @@ void led_state(int8_t temp) {
 	} else {
 	    ok();
 	}
-	*/
+	
 
 	// send temperature to 2nd line
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
