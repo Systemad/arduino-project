@@ -21,6 +21,7 @@ void main(void)
     uart_init();
 
 	int8_t temperature = 0;
+	int8_t counter = 0;
 	char buffer[50];
 
     while (1)
@@ -36,9 +37,12 @@ void main(void)
 		lcd_sendString(temp_text);
 		lcd_sendString(buffer);
 		lcd_sendString(celsius);
+
+		counter++;
+		led_state(counter);
 		
 		// Pass temperatire to function to check state and turn on LED
-		led_state(temperature);
-		_delay_ms(1000);
+		//led_state(temperature);
+		_delay_ms(500);
 	}
 }

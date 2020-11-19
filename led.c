@@ -23,27 +23,30 @@ void warning(void){
 	YELLOW_ON();
 	_delay_ms(500);
 	GREEN_OFF();
-	RED_OFF();
 
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
+	RED_OFF();
 }
 
 void critical(void){
 	// Only turn on red
 	RED_ON();
+	_delay_ms(500);
 	YELLOW_OFF();
 	GREEN_OFF();
 	
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
+	RED_OFF();
 }
 
 void ok(void){
 	// Only turn on green
 	GREEN_ON();
+	_delay_ms(500);
 	YELLOW_OFF();
 	RED_OFF();
 
@@ -53,6 +56,11 @@ void ok(void){
 }
 
 void led_state(int8_t temp) {
+
+	// To write to LCD
+	char buffer[50];
+	itoa(temp, buffer, 10);
+
 	if (temp <= MIN_TEMP){
 		critical();
 	}
