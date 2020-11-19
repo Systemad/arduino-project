@@ -23,11 +23,11 @@ void main(void)
     while (1)
     {	
 		temperature = dht_getdata(temperature);
-		//led_state(temperature);
+		led_state(temperature);
 		
 		// Testing
-		counter++;
-        led_state(counter);
+		//counter++;
+        //led_state(counter);
 		_delay_ms(1000);
 	}
 }

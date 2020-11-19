@@ -21,12 +21,12 @@ void led_init(void) {
 
 void warning(void){
 	
-	YELLOW_ON();
 	// Only turn on Yellow
+	YELLOW_ON();
+	_delay_ms(500);
 	GREEN_OFF();
 	RED_OFF();
 
-	uart_putstr(warning_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
@@ -34,11 +34,10 @@ void warning(void){
 
 void critical(void){
 	// Only turn on red
+	RED_ON();
 	YELLOW_OFF();
 	GREEN_OFF();
-	RED_ON();
 	
-	uart_putstr(critical_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(critical_mode);
@@ -46,11 +45,10 @@ void critical(void){
 
 void ok(void){
 	// Only turn on green
+	GREEN_ON();
 	YELLOW_OFF();
 	RED_OFF();
-	GREEN_ON();
 
-	uart_putstr(ok_mode);
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
@@ -62,24 +60,23 @@ void led_state(int8_t temp) {
 	char buffer[50];
 	itoa(temp, buffer, 10);
 
-	//uart_putstr(buffer);
-	if (temp > 19 && temp < 22){
-		ok();
-	}
-	
-	if (temp > 15 && temp < 19) {
-		warning();
-	}
-
-	if (temp > 22 && temp < 27){
-		warning();
-	}
-
-	if (temp <= 15){
+	if (temp <= MIN_TEMP){
 		critical();
 	}
+
+	if (temp > 15 && temp <= 18) {
+		warning();
+	}
+
+	if (temp > 18 && temp <= 23){
+		ok();
+	}
+
+	if (temp > 23 && temp < 27){
+		warning();
+	}
 	
-	if (temp >= 27) {
+	if (temp >= MAX_TEMP) {
 		critical();
 	}
 	
