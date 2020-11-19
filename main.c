@@ -28,6 +28,6 @@ void main(void)
 		// Testing
 		counter++;
         led_state(counter);
-		_delay_ms(1000);
+		_delay_ms(500);
 	}
 }
