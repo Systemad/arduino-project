@@ -1,8 +1,8 @@
 #ifndef _LED_H_
 #define _LED_H_
 
-#define GREEN_ON()       (PORTB |= (1 << PB0));
-#define GREEN_OFF()      (PORTB &= ~(1 << PB0));
+#define GREEN_ON()       (PORTB |= (1 << PB5));
+#define GREEN_OFF()      (PORTB &= ~(1 << PB5));
 
 #define YELLOW_ON()      (PORTB |= (1 << PB1));
 #define YELLOW_OFF()     (PORTB &= ~(1 << PB1));

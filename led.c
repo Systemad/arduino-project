@@ -14,17 +14,17 @@ uint8_t celsius[] = " C";
 
 void led_init(void) {
 	//Sets LED pins to output initializing further usage:
-	DDRB |= (1 << PB0); // Green
+	DDRB |= (1 << PB5); // Green
 	DDRB |= (1 << PB1); // Yellow
 	DDRB |= (1 << PB2); // Red
 }
 
 void warning(void){
 	
+	YELLOW_ON();
 	// Only turn on Yellow
 	GREEN_OFF();
 	RED_OFF();
-	YELLOW_ON();
 
 	uart_putstr(warning_mode);
 	// Send current mode to 1st line of Display
@@ -63,27 +63,23 @@ void led_state(int8_t temp) {
 	itoa(temp, buffer, 10);
 
 	//uart_putstr(buffer);
-	/*
-	if (temp <= 19 || temp >= 22)
-	{
-	    if (temp <= 15 || temp >= 27)
-	    {
-			critical();
-	    } else {
-			warning();
-	    }
-	} else {
-	    ok();
-	}
-	_delay_ms(1000);
-	*/
-	
-	
-	if (temp <= 22 && temp >= 18){
+	if (temp > 19 && temp < 22){
 		ok();
 	}
 	
-	if (temp >= 27 || temp <= 15) {
+	if (temp > 15 && temp < 19) {
+		warning();
+	}
+
+	if (temp > 22 && temp < 27){
+		warning();
+	}
+
+	if (temp <= 15){
+		critical();
+	}
+	
+	if (temp >= 27) {
 		critical();
 	}
 	
@@ -92,5 +88,4 @@ void led_state(int8_t temp) {
 	lcd_sendString(temperature);
 	lcd_sendString(buffer);
 	lcd_sendString(celsius);
-
 }
