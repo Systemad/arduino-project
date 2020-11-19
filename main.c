@@ -23,9 +23,7 @@ void main(void)
     while (1)
     {	
 		//temperature = dht_getdata(temperature);
-		
 		counter++;
         led_state(counter);
-		_delay_ms(1000);
 	}
 }

@@ -27,7 +27,7 @@ void warning(void){
 	YELLOW_ON();
 
 	uart_putstr(warning_mode);
-
+	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(warning_mode);
 }
@@ -49,8 +49,8 @@ void ok(void){
 	YELLOW_OFF();
 	RED_OFF();
 	GREEN_ON();
+
 	uart_putstr(ok_mode);
-	
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetPosition | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
@@ -79,19 +79,14 @@ void led_state(int8_t temp) {
 	*/
 	
 	
-	if (temp >= 22)
-	{
-	    if (temp >= 27)
-	    {
-			critical();
-	    } else {
-			warning();
-	    }
-	} else {
-	    ok();
+	if (temp <= 22 && temp >= 18){
+		ok();
 	}
 	
-
+	if (temp >= 27 || temp <= 15) {
+		critical();
+	}
+	
 	// send temperature to 2nd line
 	lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
 	lcd_sendString(temperature);
