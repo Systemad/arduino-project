@@ -5,44 +5,57 @@
 #include <string.h>
 #include <util/delay.h>
 
-#include "led.h"
 #include "lcd.h"
 #include "dht.h"
 #include "serial.h"
-
-uint8_t temp_text[] = " Temperature";
-uint8_t celsius[] = " C";
+#include "led.h"
 
 void main(void)
 {   
-
-    led_init();
+    char buffer[50];
+    int8_t temperature = 0;
+    uint8_t firstLine[] = " Temp: ";
+    uint8_t celsius[] = " C";
+    char degreeSymbol = (char)223;
+    uint8_t secondLine[] = " Hum: ";
+    
+	uint8_t counter = 0;
     lcd_init();
-    uart_init();
-
-	int8_t temperature = 0;
-	int8_t counter = 0;
-	char buffer[50];
+	uart_init();
+	led_init();
 
     while (1)
     {	
-		// Get temperature
-		temperature = dht_getdata(temperature);
-		
-		// Convert to string and place in buffer
-		itoa(temperature, buffer, 10);
-
-		// send temperature to 2nd line
-		lcd_instruct(LCD_SetPosition | LCD_LINE_TWO);
-		lcd_sendString(temp_text);
-		lcd_sendString(buffer);
-		lcd_sendString(celsius);
-
 		counter++;
+
 		led_state(counter);
+		_delay_ms(1000);
+
+		lcd_instruct(LCD_SetCursor | LCD_LINE_TWO);
+		lcd_sendString(firstLine);
+        temperature = dht_getdata(temperature);
+		itoa(temperature, buffer, 10);
+        lcd_sendString(buffer);
+        lcd_sendChar(degreeSymbol);
+        lcd_sendString(celsius);
+
+		/*
+        lcd_instruct(LCD_SetCursor | LCD_LINE_ONE);
+        lcd_sendString(firstLine);
+        temperature = dht_getdata(temperature);
+		itoa(temperature, buffer, 10);
+        lcd_sendString(buffer);
+        lcd_sendChar(degreeSymbol);
+        lcd_sendString(celsius);
+
+        lcd_instruct(LCD_SetCursor | LCD_LINE_TWO);
+        lcd_sendString(secondLine);
+		uart_putstr(buffer);
+		_delay_ms(2000);
 		
-		// Pass temperatire to function to check state and turn on LED
-		//led_state(temperature);
-		_delay_ms(500);
+		lcd_sendString(secondLine);
+		
+		_delay_ms(1000);
+		*/
 	}
 }

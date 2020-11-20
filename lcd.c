@@ -4,52 +4,46 @@
 
 void lcd_init() {
 
-    //Set the data pins to output:
     LCD_D7_DDR |= (1 << LCD_D7_BIT);
     LCD_D6_DDR |= (1 << LCD_D6_BIT);
     LCD_D5_DDR |= (1 << LCD_D5_BIT);
     LCD_D4_DDR |= (1 << LCD_D4_BIT);
 
-    //Set the control pins to output:
     LCD_E_DDR |= (1 << LCD_E_BIT);
     LCD_RS_DDR |= (1 << LCD_RS_BIT);
 
 	_delay_ms(100);
 
-    //Set RS and E pins to low:
 	LCD_RS_PORT &= ~(1 << LCD_RS_BIT);             
 	LCD_E_PORT &= ~(1 << LCD_E_BIT);                 
 
-    //Three part reset routine:
-    lcd_sendByte(LCD_Reset);
+    lcd_sendByte(LCD_FunctionReset);
     _delay_ms(10);                                
-    lcd_sendByte(LCD_Reset);
+    lcd_sendByte(LCD_FunctionReset);
     _delay_us(200);                                 
-    lcd_sendByte(LCD_Reset);
+    lcd_sendByte(LCD_FunctionReset);
     _delay_us(200);                              
 
 
-    lcd_sendByte(LCD_Set4bit); //Enables 4bit mode
+    lcd_sendByte(LCD_FunctionSet4bit);
     _delay_us(80);
-    lcd_instruct(LCD_Set4bit); //Set the size and font
+    lcd_instruct(LCD_FunctionSet4bit);
     _delay_us(80);
 
-    //Initialization routine:
-    lcd_instruct(LCD_DisplayOff);   //Turns display OFF
+
+    lcd_instruct(LCD_DisplayOff);     
     _delay_us(80);                              
-    lcd_instruct(LCD_Clear);        //Clears RAM
-    _delay_ms(80);                                  
-    lcd_instruct(LCD_EntryMode);    //Sets swap behaviour
+    lcd_instruct(LCD_Clear);        
+    _delay_ms(4);                                  
+    lcd_instruct(LCD_EntryMode);       
     _delay_us(80);                           
 
 
-    lcd_instruct(LCD_DisplayOn);    //Turns LCD on
+    lcd_instruct(LCD_DisplayOn);        
     _delay_us(80);                           
 }
 
-//Sends a byte to the LCD module:
 void lcd_sendByte(uint8_t byte) {
-    //Sets the data to 0 and then to 1 for every data bit:
     LCD_D7_PORT &= ~(1 << LCD_D7_BIT);                       
     if (byte & 1 << 7) LCD_D7_PORT |= (1 << LCD_D7_BIT);    
     LCD_D6_PORT &= ~(1 << LCD_D6_BIT);                       
@@ -60,29 +54,27 @@ void lcd_sendByte(uint8_t byte) {
     if (byte & 1 << 4) LCD_D4_PORT |= (1 << LCD_D4_BIT);
 
                                                        
-    LCD_E_PORT |= (1 << LCD_E_BIT);     //E to high              
+    LCD_E_PORT |= (1 << LCD_E_BIT);               
     _delay_us(1);                                 
-    LCD_E_PORT &= ~(1 << LCD_E_BIT);    //E to low        
+    LCD_E_PORT &= ~(1 << LCD_E_BIT);             
     _delay_us(1);                              
 }
 
-//Sends a byte to instruction register:
+
 void lcd_instruct(uint8_t instruction) {
-    LCD_RS_PORT &= ~(1 << LCD_RS_BIT);      //RS to low
-    LCD_E_PORT &= ~(1 << LCD_E_BIT);        //E to low      
-    lcd_sendByte(instruction);              //Uses the sendByte function to send 4 upper bits of data
-    lcd_sendByte(instruction << 4);         //Send 4 lower bits
+    LCD_RS_PORT &= ~(1 << LCD_RS_BIT);            
+    LCD_E_PORT &= ~(1 << LCD_E_BIT);              
+    lcd_sendByte(instruction);
+    lcd_sendByte(instruction << 4);
 }
 
-//Sends a byte containing a char to data register and outputs it on the LCD:
 void lcd_sendChar(uint8_t character) {
-    LCD_RS_PORT |= (1 << LCD_RS_BIT);       //RS to high
-    LCD_E_PORT &= ~(1 << LCD_E_BIT);        //E to low
+    LCD_RS_PORT |= (1 << LCD_RS_BIT);
+    LCD_E_PORT &= ~(1 << LCD_E_BIT);
     lcd_sendByte(character);
     lcd_sendByte(character << 4);
 }
 
-//Iterates through the arrayed char and outputs every one to the LCD:
 void lcd_sendString(uint8_t string[]) {
     volatile int i = 0;
     while (string[i] != 0) {

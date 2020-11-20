@@ -3,10 +3,11 @@ BIN = projecttemperature# namn på output-binären
 # Lista på C-ﬁler ingående i binären
 SOURCES = \
 		  main.c \
-		  serial.c \
+		  dht.c \
 		  lcd.c \
-		  dht.c	\
+		  serial.c \
 		  led.c
+
 
 PORT = /dev/ttyACM0#
 
