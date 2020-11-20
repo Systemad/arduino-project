@@ -1,7 +1,7 @@
 #ifndef _LCD_H_
 #define _LCD_H_
 
-//Ports:
+// Ports, bits and data registers for described pins in the LCD:
 #define LCD_D7_PORT PORTD
 #define LCD_D7_BIT	PORTD2
 #define LCD_D7_DDR	DDRD
@@ -27,14 +27,14 @@
 #define LCD_RS_DDR	DDRB
 
 
-//Positions:
+// Positions of the two lines:
 #define LCD_LINE_ONE	0x00
 #define LCD_LINE_TWO	0x40
 
-//Instructions:
-#define LCD_Clear           0b00000001         
-#define LCD_Home            0b00000010         
-#define LCD_EntryMode       0b00000110        
+// Instructions:
+#define LCD_Clear           0b00000001        // Clear all characters  
+#define LCD_Home            0b00000010        // Set the position back to the start of the first line
+#define LCD_EntryMode       0b00000110        // Swap direction of the cursor  
 #define LCD_DisplayOff      0b00001000          
 #define LCD_DisplayOn       0b00001100        
 #define LCD_FunctionReset   0b00110000       
