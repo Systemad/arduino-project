@@ -26,35 +26,17 @@ void main(void)
     while (1)
     {	
 		counter++;
-
 		led_state(counter);
-		_delay_ms(1000);
-
+		
+		temperature = dht_getdata(temperature);
+		itoa(counter, buffer, 10);
+		//led_state(temperature);
+		// Write temperature to LCD directly on line 2 
 		lcd_instruct(LCD_SetCursor | LCD_LINE_TWO);
 		lcd_sendString(firstLine);
-        temperature = dht_getdata(temperature);
-		itoa(temperature, buffer, 10);
         lcd_sendString(buffer);
         lcd_sendChar(degreeSymbol);
         lcd_sendString(celsius);
-
-		/*
-        lcd_instruct(LCD_SetCursor | LCD_LINE_ONE);
-        lcd_sendString(firstLine);
-        temperature = dht_getdata(temperature);
-		itoa(temperature, buffer, 10);
-        lcd_sendString(buffer);
-        lcd_sendChar(degreeSymbol);
-        lcd_sendString(celsius);
-
-        lcd_instruct(LCD_SetCursor | LCD_LINE_TWO);
-        lcd_sendString(secondLine);
-		uart_putstr(buffer);
-		_delay_ms(2000);
-		
-		lcd_sendString(secondLine);
-		
 		_delay_ms(1000);
-		*/
 	}
 }

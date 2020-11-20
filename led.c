@@ -53,7 +53,6 @@ void ok(void){
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetCursor | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
-	GREEN_OFF();
 }
 
 void led_state(int8_t temp) {
