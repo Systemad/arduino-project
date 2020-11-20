@@ -17,8 +17,7 @@ void main(void)
     uint8_t firstLine[] = " Temp: ";
     uint8_t celsius[] = " C";
     char degreeSymbol = (char)223;
-    
-	uint8_t counter = 0;
+
     lcd_init();
 	uart_init();
 	led_init();
