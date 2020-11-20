@@ -5,7 +5,7 @@
 #include "lcd.h"
 #include "serial.h"
 
-uint8_t ok_mode[] = " OK ";
+uint8_t ok_mode[] = " OK             ";
 uint8_t warning_mode[] = " Warning ";
 uint8_t critical_mode[] = " Critical ";
 
