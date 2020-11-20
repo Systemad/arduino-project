@@ -5,9 +5,9 @@
 #include "lcd.h"
 #include "serial.h"
 
-uint8_t ok_mode[] = " OK: ";
-uint8_t warning_mode[] = " Warning: ";
-uint8_t critical_mode[] = " Critical: ";
+uint8_t ok_mode[] = " OK ";
+uint8_t warning_mode[] = " Warning ";
+uint8_t critical_mode[] = " Critical ";
 
 
 void led_init(void) {
@@ -24,13 +24,10 @@ void warning(void){
 	_delay_ms(500);
 	GREEN_OFF();
 
-	//lcd_instruct(LCD_Clear);
-	_delay_ms(10);
-
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetCursor | LCD_LINE_ONE);
 	lcd_sendString(warning_mode);
-	RED_OFF();
+	YELLOW_OFF();
 }
 
 void critical(void){
@@ -39,9 +36,6 @@ void critical(void){
 	_delay_ms(500);
 	YELLOW_OFF();
 	GREEN_OFF();
-
-	//lcd_instruct(LCD_Clear);
-	_delay_ms(10);
 	
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetCursor | LCD_LINE_ONE); 
@@ -56,20 +50,13 @@ void ok(void){
 	YELLOW_OFF();
 	RED_OFF();
 
-	//lcd_instruct(LCD_Clear);
-	_delay_ms(10);
-
 	// Send current mode to 1st line of Display
 	lcd_instruct(LCD_SetCursor | LCD_LINE_ONE); 
 	lcd_sendString(ok_mode);
+	GREEN_OFF();
 }
 
 void led_state(int8_t temp) {
-
-	// To write to LCD
-	char buffer[50];
-	itoa(temp, buffer, 10);
-
 	if (temp <= MIN_TEMP){
 		critical();
 	}
